@@ -1,70 +1,37 @@
 "use client";
-import React, { useMemo, useState } from "react";
-import { CategoryButton } from "./CategoryButton";
-import { MenuItems } from "./MenuItems";
+/* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { SearchBar } from "./SearchBar";
 
-const categories = ["Pizzas", "Sandwiches", "Burgers", "Drinks", "Breads"];
-
-const menuItems = {
-  Pizzas: ["Margherita", "Pepperoni", "Vegetarian", "Hawaiian"],
-  Sandwiches: ["Club", "BLT", "Grilled Cheese", "Tuna"],
-  Burgers: ["Classic", "Cheeseburger", "Veggie", "Bacon Deluxe"],
-  Drinks: ["Cola", "Lemonade", "Iced Tea", "Water"],
-  Breads: ["Garlic Bread", "Focaccia", "Baguette", "Ciabatta"],
-};
+const CATEGORIES = [
+  { id: 1, name: "Pizza" },
+  { id: 2, name: "Bebidas" },
+  { id: 3, name: "Panaderia" },
+];
 
 export function RestaurantMenu() {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const filteredItems = useMemo(() => {
-    if (!searchQuery) return null;
-
-    const results: { [category: string]: string[] } = {};
-    Object.entries(menuItems).forEach(([category, items]) => {
-      const filteredCategoryItems = items.filter((item) =>
-        item.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      if (filteredCategoryItems.length > 0) {
-        results[category] = filteredCategoryItems;
-      }
-    });
-    return Object.keys(results).length > 0 ? results : null;
-  }, [searchQuery]);
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setSelectedCategory(null);
-  };
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const categoryParam = params.get("category");
 
   return (
     <div className="max-w-4xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">Menu</h1>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar />
       <div className="flex flex-wrap justify-center gap-4 my-8">
-        {categories.map((category) => (
-          <CategoryButton
-            key={category}
-            category={category}
-            isSelected={selectedCategory === category}
-            onClick={() => {
-              setSelectedCategory(category);
-              setSearchQuery("");
-            }}
-          />
+        {CATEGORIES.map((category) => (
+          <Link
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+              categoryParam === category.name && "bg-[#ead5c2] text-slate-950"
+            }`}
+            href={`/menu?category=${category.name}`}
+            key={category.id}
+          >
+            {category.name}
+          </Link>
         ))}
       </div>
-      {filteredItems ? (
-        Object.entries(filteredItems).map(([category, items]) => (
-          <MenuItems key={category} category={category} items={items} />
-        ))
-      ) : selectedCategory ? (
-        <MenuItems
-          category={selectedCategory}
-          items={menuItems[selectedCategory as keyof typeof menuItems]}
-        />
-      ) : null}
     </div>
   );
 }
