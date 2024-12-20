@@ -8,6 +8,7 @@ interface GridSearchResultsProps {
   page?: string;
   pageLimit?: string;
   category?: string;
+  subcategory?: string;
 }
 
 export const GridSearchResults = async ({
@@ -15,20 +16,19 @@ export const GridSearchResults = async ({
   page = "1",
   category = "",
   pageLimit = "",
+  subcategory = "",
 }: GridSearchResultsProps) => {
-  const res = await fetch(
-    `http://localhost:3000/api/menu?${
-      query ? `q=${query}&` : ""
-    }category=${category}&page=${page}&limit=${pageLimit}`
-  );
+  const url = new URL("http://localhost:3000/api/menu");
+  if (query) url.searchParams.append("q", query);
+  url.searchParams.append("category", category);
+  if (subcategory) url.searchParams.append("subcategory", subcategory);
+  url.searchParams.append("page", page);
+  url.searchParams.append("limit", pageLimit);
+
+  const res = await fetch(url.toString());
   const {
     products,
     totalPages,
-    currentPage,
-    limit,
-    currentPageUrl,
-    prevPageUrl,
-    nextPageUrl,
   }: {
     products: Product[];
     totalPages: number;
@@ -38,17 +38,6 @@ export const GridSearchResults = async ({
     prevPageUrl: string | null;
     nextPageUrl: string | null;
   } = await res.json();
-
-  console.log({
-    category,
-    products,
-    totalPages,
-    currentPage,
-    limit,
-    currentPageUrl,
-    prevPageUrl,
-    nextPageUrl,
-  });
 
   return (
     <>
@@ -62,6 +51,7 @@ export const GridSearchResults = async ({
       >
         {products.map((product: Product) => (
           <Card
+            id={product.id}
             key={product.id}
             name={product.name}
             price={product.price}
