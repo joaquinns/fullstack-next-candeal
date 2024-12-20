@@ -1,10 +1,16 @@
-import { Container } from "../ui/Container";
+import { SidebarDashboard } from "../ui/SidebarDashboard";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <Container tagHtml="section">
-      <h1 className="text-white">Esto es el layout del dashboard</h1>
-      <div>{children}</div>
-    </Container>
+    <div className="flex h-screen bg-gray-100">
+      <SidebarDashboard />
+      <main className="flex-1 overflow-y-auto p-8 min-h-screen">
+        {children}
+      </main>
+    </div>
   );
 }

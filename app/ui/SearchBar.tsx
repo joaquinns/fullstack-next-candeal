@@ -1,17 +1,18 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 
-interface SearchBarProps {
-  onSearch?: (query: string) => void;
-}
-
-export function SearchBar({}: SearchBarProps) {
+export function SearchBar() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (term: string) => {
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
+    const categoryParam = params.get("category");
+    if (categoryParam) {
+      params.delete("category");
+    }
     if (term) {
       params.set("q", term);
     } else {
@@ -20,7 +21,7 @@ export function SearchBar({}: SearchBarProps) {
 
     console.log(params.toString());
     replace(`${pathname}?${params.toString()}`);
-  };
+  }, 500);
 
   return (
     <form className="relative">

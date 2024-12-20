@@ -1,56 +1,65 @@
 /* eslint-disable @next/next/no-img-element */
+import { Suspense } from "react";
+import { Card } from "../ui/Card";
+import { GridSearchResults } from "../ui/GridSearchResults";
+import { GridSearchResultsSkeleton } from "../ui/GridSearchResultsSkeleton";
 import { RestaurantMenu } from "../ui/RestaurantMenu";
+import { SubcategoriesFilters } from "../ui/SubcategoriesFilters";
 
 export default async function Menu({
   searchParams,
 }: {
-  searchParams: { q?: string; page?: string };
+  searchParams: {
+    q?: string;
+    page?: string;
+    category?: string;
+    subcategory?: string;
+    limit?: string;
+  };
 }) {
-  const { q, page } = await searchParams;
-  console.log({ q, page });
-
-  await fetch("http://localhost:3000/api/menu?q=" + q?.toString());
+  const { q, page, category, limit, subcategory } = await searchParams;
 
   return (
     <main className="relative min-h-screen mx-auto pt-16 max-w-6xl px-4 xl:px-0">
+      <RestaurantMenu />
       <section className="mx-auto">
-        <h2 className="text-center text-6xl">Los mas Pedidos</h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "1rem",
-          }}
-          className=""
-        >
-          <article className="relative h-[420px] rounded shadow-md shadow-white/10 bg-white text-gray-600 flex flex-col justify-between">
-            <img
-              src="/candeal1.jpg"
-              alt="Pizza"
-              className="w-full h-[200px] object-cover"
-            />
-            <div className="flex flex-col">
-              <div className="flex justify-between items-center px-4">
-                <h3 className="text-xl font-bold text-slate-950">Margherita</h3>
-                <span className="p-2 bg-[#ead5c2] text-black font-semibold rounded-full text-sm px-4 py-1">
-                  pizza
-                </span>
+        <div className="flex flex-col gap-4 mt-4">
+          {q || category ? (
+            <>
+              {category && <SubcategoriesFilters category={category} />}
+              <h2 className="text-3xl font-bold py-2">Nuestros productos</h2>
+              <Suspense fallback={<GridSearchResultsSkeleton />}>
+                <GridSearchResults
+                  subcategory={subcategory}
+                  query={q}
+                  page={page}
+                  category={category}
+                  pageLimit={limit}
+                />
+              </Suspense>
+            </>
+          ) : (
+            <>
+              <h2 className="text-3xl font-bold">Los mas Pedidos</h2>
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                  gap: "1rem",
+                  margin: "2rem 0",
+                }}
+              >
+                {
+                  // crear componente para mas vendidos?
+                }
+                <Card id="1" />
+                <Card id="2" />
+                <Card id="3" />
               </div>
-              <p className="p-4 line-clamp-3 text-base">
-                Pizza margarita mediana excelente para 4 personas. Con queso,
-                pepperoni y los aditivos que gustes.
-              </p>
-            </div>
-            <footer className="flex justify-between items-center py-2 px-4">
-              <span className="text-xl font-bold text-slate-950">$10</span>
-              <button className="px-4 py-2 rounded font-semibold bg-[#ead5c2] text-slate-950 hover:bg-[#e4a468] transition-colors duration-200 ease-in-out ">
-                Anadir al Carrito
-              </button>
-            </footer>
-          </article>
+            </>
+          )}
         </div>
       </section>
-      <RestaurantMenu />
     </main>
   );
 }

@@ -26,7 +26,7 @@ export const Modal = ({ children, isModalOpen, onClose }: ModalProps) => {
       style={{ zIndex: 9999 }}
       className={`${cssAnimationModal} fixed top-0 bottom-0 inset-0 bg-black/70 transition-all ease-in-out duration-300`}
     >
-      <div className="relative w-2/5 ml-auto h-full bg-white text-black p-8">
+      <div className="relative w-full mx-auto md:w-2/3 lg:w-2/5 md:mx-0 md:ml-auto h-full bg-white text-black p-8">
         <button
           onClick={onClose}
           className="absolute top-4 right-4 p-2 rounded text-slate-950 bg-white border border-slate-950"
