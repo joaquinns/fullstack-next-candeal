@@ -6,9 +6,9 @@ export async function GET(request: Request) {
   const searchParams = new URL(request.url).searchParams;
   const query = searchParams.get("q");
   const page = Number(searchParams.get("page") || 1);
-  const limit = Number(searchParams.get("limit") || 1);
+  const limit = Number(searchParams.get("limit") || 20);
   const category = searchParams.get("category") || "";
-  console.log({ category, query }, "from url");
+  const subcategory = searchParams.get("subcategory") || "";
   const skip = (page - 1) * limit;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filters: any = {};
@@ -26,14 +26,28 @@ export async function GET(request: Request) {
     } else filters.category = { name: { equals: category } };
   }
 
+  /*   if (subcategory) {
+    if (filters.OR) {
+      filters.AND = [{ subcategory: { name: { equals: subcategory } } }];
+    } else filters.subcategory = { name: { equals: subcategory } };
+  } */
+
+  if (subcategory) {
+    if (filters.AND) {
+      filters.AND.push({ subcategory: { name: { equals: subcategory } } });
+    } else if (filters.OR) {
+      filters.AND = [{ subcategory: { name: { equals: subcategory } } }];
+    } else {
+      filters.subcategory = { name: { equals: subcategory } };
+    }
+  }
+
   const foundedProducts: Product[] = await prisma.product.findMany({
     where: filters,
     skip,
     take: limit,
-    include: { category: true },
+    include: { category: true, subcategory: true },
   });
-
-  console.log("######## FROM ROUTE ######", { foundedProducts });
 
   // Obtén el total de productos para el cálculo del número total de páginas
   const totalProducts = await prisma.product.count({ where: filters });
@@ -43,19 +57,19 @@ export async function GET(request: Request) {
     process.env.NEXT_PUBLIC_BASE_URL
   }/menu?q=${query}&page=${page}&limit=${limit}${
     category ? `&category=${category}` : ""
-  }`;
+  }${subcategory ? `&subcategory=${subcategory}` : ""}`;
 
   const prevPageUrl = `${
     process.env.NEXT_PUBLIC_BASE_URL
   }/menu?q=${query}&page=${page - 1}&limit=${limit}${
     category ? `&category=${category}` : ""
-  }`;
+  }${subcategory ? `&subcategory=${subcategory}` : ""}`;
 
   const nextPageUrl = `${
     process.env.NEXT_PUBLIC_BASE_URL
   }/menu?q=${query}&page=${page + 1}&limit=${limit}${
     category ? `&category=${category}` : ""
-  }`;
+  }${subcategory ? `&subcategory=${subcategory}` : ""}`;
 
   return NextResponse.json({
     products: foundedProducts,
