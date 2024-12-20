@@ -18,7 +18,7 @@ export const GridSearchResults = async ({
   pageLimit = "",
   subcategory = "",
 }: GridSearchResultsProps) => {
-  const url = new URL("http://localhost:3000/api/menu");
+  const url = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/api/menu`);
   if (query) url.searchParams.append("q", query);
   url.searchParams.append("category", category);
   if (subcategory) url.searchParams.append("subcategory", subcategory);
