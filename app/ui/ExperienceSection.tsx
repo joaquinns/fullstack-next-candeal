@@ -8,11 +8,13 @@ export const ExperienceSection = () => {
   const [videoRef, isIntersecting] = useScroll({
     threshold: 0.3,
     rootMargin: "20px",
+    oneTime: true,
   });
 
   const [experienceRef, experienceIsIntersecting] = useScroll({
     threshold: 0.6,
     rootMargin: "20px",
+    oneTime: true,
   });
 
   const animateVideo = `${
