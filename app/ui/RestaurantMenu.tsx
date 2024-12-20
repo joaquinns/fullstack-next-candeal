@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { SearchBar } from "./SearchBar";
 
 const CATEGORIES = [
-  { id: 1, name: "Pizza" },
+  { id: 1, name: "Pizzas" },
   { id: 2, name: "Bebidas" },
   { id: 3, name: "Panaderia" },
 ];
