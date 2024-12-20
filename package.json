@@ -13,12 +13,14 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} lib/seed.ts"
   },
   "dependencies": {
+    "@headlessui/react": "2.2.0",
     "@prisma/client": "^6.0.1",
     "next": "15.0.4",
     "prisma": "^6.0.1",
     "react": "^19.0.0",
     "react-content-loader": "^7.0.2",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "2.4.1",
     "use-debounce": "10.0.4"
   },
   "devDependencies": {
