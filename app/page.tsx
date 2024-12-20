@@ -1,10 +1,15 @@
+import { Adress } from "./ui/Adress";
+import { AmbientSection } from "./ui/AmbientSection";
+import { ExperienceSection } from "./ui/ExperienceSection";
 import { Hero } from "./ui/Hero";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen mx-auto">
+    <main className="relative min-h-screen mx-auto overflow-x-hidden">
       <Hero />
-      <section className="h-screen bg-white"></section>
+      <AmbientSection />
+      <ExperienceSection />
+      <Adress />
     </main>
   );
 }
