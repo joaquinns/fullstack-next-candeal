@@ -53,7 +53,7 @@ export const Card = ({
 
   return (
     <>
-      <article className="relative min-h-[420px] rounded shadow-md shadow-white/10 bg-white text-gray-600 flex flex-col justify-between overflow-hidden">
+      <article className="relative min-h-[420px] rounded lg:shadow-md shadow-white/10 bg-white text-gray-600 flex flex-col justify-between overflow-hidden">
         <img
           src={imageURL}
           alt={"imagen de " + name}
