@@ -1,0 +1,21 @@
+# Usa Node.js como base
+FROM node:18-alpine
+
+# Instala dependencias necesarias
+RUN apk add --no-cache libc6-compat openssl
+
+# Crea el directorio de la app
+WORKDIR /app
+
+# Copia archivos de configuración e instala dependencias
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copia el resto de los archivos al contenedor
+COPY . .
+
+# Instala Prisma Client y corre migraciones
+RUN npm run pgenerate
+
+# Comando de inicio
+CMD ["sh", "-c", "npx prisma migrate deploy && npm run dev"]
