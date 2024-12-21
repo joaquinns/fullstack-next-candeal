@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import { useScroll } from "../hooks/useScroll";
 import { SectionParagraph } from "./SectionParagraph";
 import { Subtitle } from "./Subtitle";
@@ -28,10 +28,6 @@ export const ExperienceSection = () => {
       ? "translate-y-0 opacity-100"
       : "translate-y-[-100%] opacity-0"
   } transition-all duration-1000 ease-in-out`;
-
-  useEffect(() => {
-    console.log(experienceIsIntersecting);
-  });
 
   return (
     <section className="min-h-screen h-full">
