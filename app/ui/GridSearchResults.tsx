@@ -41,25 +41,31 @@ export const GridSearchResults = async ({
 
   return (
     <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: "1rem",
-        }}
-        className=""
-      >
-        {products.map((product: Product) => (
-          <Card
-            id={product.id}
-            key={product.id}
-            name={product.name}
-            price={product.price}
-            description={product.description}
-          />
-        ))}
-      </div>
-      <Navigation query={query} totalPages={totalPages} />
+      {products.length < 1 ? (
+        <h1>No hay productos </h1>
+      ) : (
+        <>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gap: "1rem",
+            }}
+            className=""
+          >
+            {products.map((product: Product) => (
+              <Card
+                id={product.id}
+                key={product.id}
+                name={product.name}
+                price={product.price}
+                description={product.description}
+              />
+            ))}
+          </div>
+          <Navigation query={query} totalPages={totalPages} />
+        </>
+      )}
     </>
   );
 };
