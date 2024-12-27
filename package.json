@@ -17,6 +17,7 @@
   "dependencies": {
     "@headlessui/react": "2.2.0",
     "@prisma/client": "^6.0.1",
+    "intersection-observer": "0.12.2",
     "next": "15.0.4",
     "prisma": "6.0.1",
     "react": "19.0.0",
