@@ -5,36 +5,25 @@ import { SectionParagraph } from "./SectionParagraph";
 import { Subtitle } from "./Subtitle";
 
 export const ExperienceSection = () => {
-  const [videoRef, isIntersecting] = useScroll({
+  const [experienceRef, isVisible] = useScroll({
     threshold: 0.3,
-    rootMargin: "20px",
-    oneTime: true,
+    rootMargin: "0px",
   });
 
-  const [experienceRef, experienceIsIntersecting] = useScroll({
-    threshold: 0.6,
-    rootMargin: "20px",
-    oneTime: true,
-  });
-
-  const animateVideo = `${
-    isIntersecting
-      ? "translate-x-0 opacity-100 scale-100"
-      : "translate-x-full opacity-0 scale-20"
-  } transition-all duration-1000 ease-in-out`;
-
-  const animateExperience = `${
-    experienceIsIntersecting
-      ? "translate-y-0 opacity-100"
-      : "translate-y-[-100%] opacity-0"
-  } transition-all duration-1000 ease-in-out`;
+  const baseClassesForAnimations = "transition-all duration-1000 ease-in-out";
 
   return (
-    <section className="min-h-screen h-full">
+    <section
+      ref={experienceRef as React.RefObject<HTMLDivElement>}
+      className="min-h-screen h-full"
+    >
       <div className="flex justify-center items-center min-h-screen h-full w-full mx-auto flex-col lg:flex-row gap-8 lg:gap-0">
         <div
-          ref={experienceRef as React.RefObject<HTMLDivElement>}
-          className={`w-full h-full px-4 md:px-6 flex flex-col items-start justify-center gap-8 ${animateExperience}`}
+          className={`w-full h-full px-4 md:px-6 flex flex-col items-start justify-center gap-8 ${baseClassesForAnimations} ${
+            isVisible
+              ? "opacity-100 translate-x-0"
+              : "opacity-0 -translate-x-full"
+          }`}
         >
           <Subtitle>Mas que un lugar, una experiencia</Subtitle>
           <SectionParagraph tailwindClass="text-left">
@@ -45,8 +34,14 @@ export const ExperienceSection = () => {
         </div>
         <div className="flex w-full h-full justify-center items-center">
           <video
-            ref={videoRef as React.RefObject<HTMLVideoElement>}
-            className={animateVideo + " h-auto w-[300px] rounded"}
+            className={
+              baseClassesForAnimations +
+              ` h-auto w-[300px] rounded ${
+                isVisible
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-full"
+              }`
+            }
             src="/experience.mp4"
             autoPlay
             controls
