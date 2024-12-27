@@ -3,28 +3,20 @@ import { RefObject, useEffect, useRef, useState } from "react";
 interface UseScrollOptions {
   root?: Element | null;
   rootMargin?: string;
-  threshold?: number | number[];
-  oneTime?: boolean;
+  threshold?: number;
 }
 
 export const useScroll = (
   options: UseScrollOptions = {}
 ): [RefObject<Element | null>, boolean] => {
-  const elementRef = useRef<Element | null>(null); // Permite que sea null inicialmente
+  const elementRef = useRef<Element | null>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry], obs) => {
       if (entry.isIntersecting) {
         setIsIntersecting(true);
-
-        // Si `oneTime` está activado, deja de observar el elemento
-        if (options.oneTime) {
-          obs.unobserve(entry.target);
-        }
-      } else if (!options.oneTime) {
-        // Si no es `oneTime`, actualiza el estado como false cuando sale de la vista
-        setIsIntersecting(false);
+        obs.unobserve(entry.target);
       }
     }, options);
 
