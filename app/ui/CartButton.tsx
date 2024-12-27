@@ -7,7 +7,8 @@ import { Modal } from "./Modal";
 export const CartButton = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { cart, removeFromCart, updateQuantity, totalPrice } = useCart();
+  const { cart, removeFromCart, updateQuantity, totalPrice, totalItems } =
+    useCart();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -40,6 +41,11 @@ export const CartButton = () => {
         className={`fixed bottom-8 right-4 xl:right-16 z-50 p-4 bg-white rounded-full shadow-md text-black border border-black ease-in-out transition-all duration-300 hover:scale-110 ${cssAnimationCart}`}
         onClick={handleToggleModal}
       >
+        {totalItems > 0 && (
+          <span className="absolute -top-1 -left-2 w-5 h-5 bg-red-400 text-white rounded-full flex items-center justify-center text-xs">
+            {totalItems}
+          </span>
+        )}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
