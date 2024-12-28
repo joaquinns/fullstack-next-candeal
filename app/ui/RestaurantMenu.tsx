@@ -22,7 +22,7 @@ export function RestaurantMenu() {
       <div className="flex flex-wrap justify-center gap-4 my-8">
         {CATEGORIES.map((category) => (
           <Link
-            className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
+            className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors hover:bg-[#ead5c2] hover:text-slate-950 ${
               categoryParam === category.name && "bg-[#ead5c2] text-slate-950"
             }`}
             href={`/menu?category=${category.name}`}

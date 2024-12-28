@@ -38,7 +38,7 @@ export const CartButton = () => {
   return (
     <>
       <button
-        className={`fixed bottom-8 right-4 xl:right-16 z-50 p-4 bg-white rounded-full shadow-md text-black border border-black ease-in-out transition-all duration-300 hover:scale-110 ${cssAnimationCart}`}
+        className={`fixed bottom-8 right-4 xl:right-16 z-50 p-4 bg-white rounded-full shadow-sm text-black shadow-white ease-in-out transition-all duration-300 hover:scale-110 ${cssAnimationCart}`}
         onClick={handleToggleModal}
       >
         {totalItems > 0 && (
