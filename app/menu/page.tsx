@@ -16,7 +16,8 @@ export default async function Menu({
     limit?: string;
   };
 }) {
-  const { q, page, category, limit, subcategory } = searchParams;
+  const params = await searchParams;
+  const { q, page, category, limit, subcategory } = params;
 
   return (
     <main className="relative min-h-screen mx-auto pt-16 max-w-6xl px-4 xl:px-0">
