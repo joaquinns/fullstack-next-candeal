@@ -102,20 +102,20 @@ export const Navbar = () => {
               className="flex flex-col justify-center items-center text-center w-full h-full pt-40 lg:pt-32 px-4 gap-1"
             >
               <li className="w-full">
-                <a
-                  href="#intereses"
+                <Link
+                  href="/menu"
                   className="font-bold bg-black text-slate-50 hover:bg-[#ead5c2] hover:text-black hover:border hover:border-black transition-all ease-in-out text-lg w-full h-full block py-4 rounded border border-black"
                 >
-                  Intereses
-                </a>
+                  Menu
+                </Link>
               </li>
               <li className="w-full">
-                <a
-                  href="#manito"
+                <Link
+                  href="/"
                   className="font-bold bg-black text-slate-50 hover:bg-[#ead5c2] hover:text-black hover:border hover:border-black transition-all ease-in-out text-lg w-full h-full block py-4 rounded border border-black"
                 >
-                  manito
-                </a>
+                  Inicio
+                </Link>
               </li>
             </ul>
           </div>
