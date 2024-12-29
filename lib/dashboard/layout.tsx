@@ -1,4 +1,4 @@
-import { SidebarDashboard } from "../ui/SidebarDashboard";
+import { SidebarDashboard } from "../../app/ui/SidebarDashboard";
 
 export default function DashboardLayout({
   children,
