@@ -16,6 +16,7 @@ export const TestSearch = ({ products }: { products: Product[] }) => {
       >
         {products.map((product: Product) => (
           <Card
+            id={product.id}
             key={product.id}
             name={product.name}
             price={product.price}
