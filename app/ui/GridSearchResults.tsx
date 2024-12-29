@@ -55,6 +55,9 @@ export const GridSearchResults = async ({
           >
             {products.map((product: Product) => (
               <Card
+                imageURL={
+                  product.imageUrl !== "#" ? product.imageUrl : undefined
+                }
                 id={product.id}
                 key={product.id}
                 name={product.name}

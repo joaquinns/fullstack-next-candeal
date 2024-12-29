@@ -17,7 +17,7 @@ interface CardProps {
 export const Card = ({
   id,
   name = "Example",
-  imageURL = "/candeal1.jpg",
+  imageURL,
   price = 8,
   category = "Pizzas",
   description = "lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, voluptatem.",
@@ -61,7 +61,7 @@ export const Card = ({
             className="object-cover object-center"
             blurDataURL="/candeal1.jpg"
             loading="lazy"
-            src={imageURL}
+            src={imageURL ?? "/candeal1.jpg"}
             alt={"imagen de " + name}
           />
         </div>
