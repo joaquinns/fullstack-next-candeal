@@ -1,10 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useCart } from "../context/CartContext";
-
-/* eslint-disable @next/next/no-img-element */
 
 interface CardProps {
   id: string;
@@ -54,11 +53,18 @@ export const Card = ({
   return (
     <>
       <article className="relative min-h-[420px] rounded lg:shadow-md shadow-white/10 bg-white text-gray-600 flex flex-col justify-between overflow-hidden">
-        <img
-          src={imageURL}
-          alt={"imagen de " + name}
-          className="w-full h-[200px] object-cover"
-        />
+        <div className="relative w-full h-[200px] aspect-video">
+          <Image
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            placeholder="blur"
+            className="object-cover object-center"
+            blurDataURL="/candeal1.jpg"
+            loading="lazy"
+            src={imageURL}
+            alt={"imagen de " + name}
+          />
+        </div>
 
         {/* Contenido */}
         <div className="flex flex-col flex-1 justify-between">

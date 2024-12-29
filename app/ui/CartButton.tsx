@@ -42,7 +42,7 @@ export const CartButton = () => {
         onClick={handleToggleModal}
       >
         {totalItems > 0 && (
-          <span className="absolute -top-1 -left-2 w-5 h-5 bg-red-400 text-white rounded-full flex items-center justify-center text-xs">
+          <span className="absolute -top-1 -left-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs">
             {totalItems}
           </span>
         )}
@@ -117,7 +117,9 @@ export const CartButton = () => {
               <span>Total:</span>
               <span>${totalPrice.toFixed(2)}</span>
             </div>
-            <button className="w-full">Crear pedido!</button>
+            <button className="w-full bg-green-500 py-3 px-4 rounded font-semibold text-white hover:bg-green-700">
+              Crear pedido!
+            </button>
           </div>
         )}
       </Modal>
