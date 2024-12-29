@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Suspense } from "react";
 import { Card } from "../ui/Card";
 import { GridSearchResults } from "../ui/GridSearchResults";
@@ -17,7 +16,7 @@ export default async function Menu({
     limit?: string;
   };
 }) {
-  const { q, page, category, limit, subcategory } = await searchParams;
+  const { q, page, category, limit, subcategory } = searchParams;
 
   return (
     <main className="relative min-h-screen mx-auto pt-16 max-w-6xl px-4 xl:px-0">
