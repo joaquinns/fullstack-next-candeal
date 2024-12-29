@@ -8,13 +8,13 @@ import { SubcategoriesFilters } from "../ui/SubcategoriesFilters";
 export default async function Menu({
   searchParams,
 }: {
-  searchParams: {
+  searchParams: Promise<{
     q?: string;
     page?: string;
     category?: string;
     subcategory?: string;
     limit?: string;
-  };
+  }>;
 }) {
   const params = await searchParams;
   const { q, page, category, limit, subcategory } = params;
