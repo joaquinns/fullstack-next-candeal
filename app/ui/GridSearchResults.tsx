@@ -42,7 +42,7 @@ export const GridSearchResults = async ({
   return (
     <>
       {products.length < 1 ? (
-        <h1>No hay productos </h1>
+        <h2 className="text-2xl font-bold py-2">No hay productos</h2>
       ) : (
         <>
           <div
